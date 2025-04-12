@@ -1,15 +1,12 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const axios = require('axios');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 10000;
 
-app.use(bodyParser.json());
+app.use(express.json());
 
-// 프록시 경로
 app.post('/check-domain', async (req, res) => {
   const { domain } = req.body;
-
   if (!domain) {
     return res.status(400).json({ error: '도메인이 필요합니다.' });
   }
@@ -22,7 +19,7 @@ app.post('/check-domain', async (req, res) => {
       },
       {
         headers: {
-          'Authorization': 'Basic aGFuZ2RvbmdnZ290c29uQGdtYWlsLmNvbTpjZWU3ODA4Mjk2YTIwMzM2ZmU1MDI3YzY0NmU0ZTU2MTU0YTU4YTg5',
+          Authorization: 'Basic 여기에_토큰을_넣으세요', // 🔐 base64 인코딩된 username:token 입력
           'Content-Type': 'application/json'
         }
       }
@@ -30,15 +27,11 @@ app.post('/check-domain', async (req, res) => {
 
     res.json(response.data);
   } catch (error) {
-    console.error('Error calling Name.com API:', error.response?.data || error.message);
-    res.status(500).json({ error: 'API 호출 중 오류 발생', details: error.response?.data });
+    console.error('에러 발생:', error.response?.data || error.message);
+    res.status(500).json({ error: '도메인 체크 중 오류가 발생했습니다.' });
   }
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello from Name.com Proxy!');
-});
-
 app.listen(port, () => {
-  console.log(`Proxy server is running on port ${port}`);
+  console.log(`Proxy server listening on port ${port}`);
 });
