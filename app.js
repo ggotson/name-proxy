@@ -19,7 +19,7 @@ app.post('/check-domain', async (req, res) => {
       },
       {
         headers: {
-          Authorization: 'Basic 여기에_토큰을_넣으세요', // 🔐 base64 인코딩된 username:token 입력
+          Authorization: 'Basic aGFuZ2RvbmdnZ290c29uQGdtYWlsLmNvbTpjZWU3ODA4Mjk2YTIwMzM2ZmU1MDI3YzY0NmU0ZTU2MTU0YTU4YTg5'
           'Content-Type': 'application/json'
         }
       }
